@@ -1,84 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBFCFC">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="end">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header_container_hp"
-        android:layout_width="412dp"
-        android:layout_height="250dp"
-        android:background="#2B5658"
-        android:padding="24dp"
-        android:paddingStart="24dp"
-        android:paddingLeft="24dp"
-        android:paddingTop="48dp"
-        android:paddingEnd="24dp"
-        android:paddingRight="24dp"
-        android:paddingBottom="24dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FBFCFC">
 
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/image_hp"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_margin="0dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="32dp"
-            android:padding="4dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/hi_name_hp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header_container_hp"
+            android:layout_width="412dp"
+            android:layout_height="250dp"
+            android:background="#2B5658"
+            android:padding="24dp"
+            android:paddingStart="24dp"
+            android:paddingLeft="24dp"
+            android:paddingTop="48dp"
+            android:paddingEnd="24dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_hp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="32dp"
+                android:padding="4dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@+id/hi_name_hp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/CircularImageView"
+                app:srcCompat="@drawable/no_pp"
+                app:strokeColor="#FBFCFC"
+                app:strokeWidth="4dp" />
+
+            <ImageButton
+                android:id="@+id/menu_btn_hp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="146dp"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Menu"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/homepage_menu" />
+
+            <TextView
+                android:id="@+id/hi_name_hp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/abhaya_libre_semibold"
+                android:text="Hi, Layla !"
+                android:textColor="#FBFCFC"
+                android:textSize="34sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/cherish_hp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:fontFamily="@font/abhaya_libre_semibold"
+                android:text="Cherish your beautiful memories"
+                android:textColor="#B3FBFCFC"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/drawer_menu_container"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:orientation="vertical"
+        android:background="#2B5658"
+        android:padding="24dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/menu_profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:padding="4dp"
+            android:src="@drawable/no_pp"
             app:shapeAppearanceOverlay="@style/CircularImageView"
-            app:srcCompat="@drawable/no_pp"
             app:strokeColor="#FBFCFC"
             app:strokeWidth="4dp" />
 
-        <ImageButton
-            android:id="@+id/menu_btn_hp"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="146dp"
-            android:backgroundTint="#00FFFFFF"
-            android:contentDescription="Menu"
-            android:padding="0dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/homepage_menu" />
-
         <TextView
-            android:id="@+id/hi_name_hp"
+            android:id="@+id/menu_profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/abhaya_libre_semibold"
-            android:text="Hi, Layla !"
+            android:text="Layla"
             android:textColor="#FBFCFC"
             android:textSize="34sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/cherish_hp"
+        <View
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#FBFCFC" />
+
+        <Button
+            android:id="@+id/menu_nav_your_travels"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
             android:fontFamily="@font/abhaya_libre_semibold"
-            android:text="Cherish your beautiful memories"
-            android:textColor="#B3FBFCFC"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:gravity="center_vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="Your Travels"
+            android:textAllCaps="false"
+            android:textColor="#FBFCFC"
+            android:textSize="18sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/menu_nav_goal_travels"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:gravity="center_vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="Goal Travels"
+            android:textAllCaps="false"
+            android:textColor="#FBFCFC"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/menu_nav_where_ive_been"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:gravity="center_vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="Where I've Been"
+            android:textAllCaps="false"
+            android:textColor="#FBFCFC"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#FBFCFC" />
+
+        <Button
+            android:id="@+id/menu_nav_settings"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:drawablePadding="1dp"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:gravity="center_horizontal"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="Settings"
+            android:textAllCaps="false"
+            android:textColor="#FBFCFC"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/settings" />
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>
