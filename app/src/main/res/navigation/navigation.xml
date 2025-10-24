@@ -5,12 +5,67 @@
     android:id="@+id/navigation"
     app:startDestination="@id/homeFragment">
 
-
     <fragment
         android:id="@+id/homeFragment"
         android:name="msku.ceng.travelogue.HomePage"
         android:label="fragment_home"
-        tools:layout="@layout/homepage" />
+        tools:layout="@layout/homepage" >
+        <action
+            android:id="@+id/action_homeFragment_to_yourTravelsFragment"
+            app:destination="@id/yourTravelsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_goalTravelsFragment"
+            app:destination="@id/goalTravelsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_whereivebeen"
+            app:destination="@id/whereivebeen" />
+        <action
+            android:id="@+id/action_homeFragment_to_settings"
+            app:destination="@id/settings" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/yourTravelsFragment"
+        android:name="msku.ceng.travelogue.YourTravels"
+        android:label="fragment_your_travels"
+        tools:layout="@layout/yourtravels" >
+        <action
+            android:id="@+id/action_yourTravels_to_addTravels"
+            app:destination="@id/addTravelFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addTravelFragment"
+        android:name="msku.ceng.travelogue.AddTravel"
+        android:label="fragment_add_travels"
+        android:layout="@layout/addtravel" />
+
+    <fragment
+        android:id="@+id/goalTravelsFragment"
+        android:name="msku.ceng.travelogue.GoalTravels"
+        android:label="fragment_goal_travels"
+        tools:layout="@layout/goaltravels" >
+        <action
+            android:id="@+id/action_goalTravels_to_addGoal"
+            app:destination="@id/addGoalFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addGoalFragment"
+        android:name="msku.ceng.travelogue.AddGoal"
+        android:label="fragment_add_goal"
+        android:layout="@layout/addgoal" />
+
+    <fragment
+        android:id="@+id/whereivebeen"
+        android:name="msku.ceng.travelogue.WhereIveBeen"
+        android:label="fragment_whereivebeen"
+        android:layout="@layout/whereivebeen" />
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="msku.ceng.travelogue.Settings"
+        android:label="fragment_settings"
+        android:layout="@layout/settings" />
 
 </navigation>
-
