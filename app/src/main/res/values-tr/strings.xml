@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Travelogue</string>
+
+    <string name="hi_user">Merhaba, Layla !</string>
+    <string name="cherish_memories">Güzel anılarını yaşat</string>
+    <string name="menu_your_travels">Seyahatlerim</string>
+    <string name="menu_goal_travels">Hedeflerim</string>
+    <string name="menu_where_ive_been">Gittiğim Yerler</string>
+    <string name="menu_settings">Ayarlar</string>
+
+    <string name="title_your_travels">Seyahatlerim</string>
+    <string name="title_goal_travels">Hedeflerim</string>
+    <string name="title_add_travel">Seyahat Ekle</string>
+    <string name="title_add_goal">Hedef Ekle</string>
+    <string name="title_where_ive_been">Gittiğim Yerler</string>
+    <string name="title_settings">Ayarlar</string>
+
+    <string name="settings_logout">Çıkış Yap</string>
+    <string name="settings_language">Dili Değiştir</string>
+
+    <string name="cd_menu">Menü</string>
+    <string name="cd_back">Geri</string>
+    <string name="cd_add_travel">Yeni seyahat ekle</string>
+    <string name="cd_add_goal">Yeni hedef ekle</string>
+</resources>

@@ -56,7 +56,7 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="146dp"
                 android:backgroundTint="#00FFFFFF"
-                android:contentDescription="Menu"
+                android:contentDescription="@string/cd_menu"
                 android:padding="0dp"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/abhaya_libre_semibold"
-                android:text="Hi, Layla !"
+                android:text="@string/hi_user"
                 android:textColor="#FBFCFC"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="0dp"
                 android:fontFamily="@font/abhaya_libre_semibold"
-                android:text="Cherish your beautiful memories"
+                android:text="@string/cherish_memories"
                 android:textColor="#B3FBFCFC"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -145,7 +145,7 @@
             android:gravity="center_vertical"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            android:text="Your Travels"
+            android:text="@string/menu_your_travels"
             android:textAllCaps="false"
             android:textColor="#FBFCFC"
             android:textSize="18sp" />
@@ -160,7 +160,7 @@
             android:gravity="center_vertical"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            android:text="Goal Travels"
+            android:text="@string/menu_goal_travels"
             android:textAllCaps="false"
             android:textColor="#FBFCFC"
             android:textSize="18sp" />
@@ -175,7 +175,7 @@
             android:gravity="center_vertical"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            android:text="Where I've Been"
+            android:text="@string/menu_where_ive_been"
             android:textAllCaps="false"
             android:textColor="#FBFCFC"
             android:textSize="18sp" />
@@ -203,7 +203,7 @@
             android:gravity="center_horizontal"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            android:text="Settings"
+            android:text="@string/menu_settings"
             android:textAllCaps="false"
             android:textColor="#FBFCFC"
             android:textSize="18sp"
@@ -213,4 +213,3 @@
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>
-
