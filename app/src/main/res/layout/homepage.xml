@@ -12,30 +12,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FBFCFC">
+        android:background="?attr/colorSurface">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header_container_hp"
-            android:layout_width="412dp"
+            android:layout_width="0dp"
             android:layout_height="250dp"
-            android:background="#2B5658"
+            android:background="?attr/colorPrimary"
             android:padding="24dp"
-            android:paddingStart="24dp"
-            android:paddingLeft="24dp"
-            android:paddingTop="48dp"
-            android:paddingEnd="24dp"
-            android:paddingRight="24dp"
-            android:paddingBottom="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints">
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_hp"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_margin="0dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="32dp"
                 android:padding="4dp"
@@ -45,7 +38,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/CircularImageView"
                 app:srcCompat="@drawable/no_pp"
-                app:strokeColor="#FBFCFC"
+                app:strokeColor="?attr/colorOnPrimary"
                 app:strokeWidth="4dp" />
 
             <ImageButton
@@ -62,7 +55,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/homepage_menu" />
+                app:srcCompat="@drawable/homepage_menu"
+                app:tint="?attr/colorOnPrimary" />
 
             <TextView
                 android:id="@+id/hi_name_hp"
@@ -71,7 +65,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/abhaya_libre_semibold"
                 android:text="@string/hi_user"
-                android:textColor="#FBFCFC"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -83,7 +77,7 @@
                 android:layout_marginBottom="0dp"
                 android:fontFamily="@font/abhaya_libre_semibold"
                 android:text="@string/cherish_memories"
-                android:textColor="#B3FBFCFC"
+                android:textColor="@color/textColorSecondary"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -97,7 +91,7 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="#2B5658"
+        android:background="?attr/colorPrimary"
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"
@@ -112,7 +106,7 @@
             android:padding="4dp"
             android:src="@drawable/no_pp"
             app:shapeAppearanceOverlay="@style/CircularImageView"
-            app:strokeColor="#FBFCFC"
+            app:strokeColor="?attr/colorOnPrimary"
             app:strokeWidth="4dp" />
 
         <TextView
@@ -124,7 +118,7 @@
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/abhaya_libre_semibold"
             android:text="Layla"
-            android:textColor="#FBFCFC"
+            android:textColor="@color/textColorPrimary"
             android:textSize="34sp"
             android:textStyle="bold" />
 
@@ -132,7 +126,7 @@
             android:layout_width="200dp"
             android:layout_height="1dp"
             android:layout_gravity="center_horizontal"
-            android:background="#FBFCFC" />
+            android:background="?attr/colorOnPrimary" />
 
         <Button
             android:id="@+id/menu_nav_your_travels"
@@ -147,7 +141,7 @@
             android:paddingBottom="16dp"
             android:text="@string/menu_your_travels"
             android:textAllCaps="false"
-            android:textColor="#FBFCFC"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp" />
 
         <Button
@@ -162,7 +156,7 @@
             android:paddingBottom="16dp"
             android:text="@string/menu_goal_travels"
             android:textAllCaps="false"
-            android:textColor="#FBFCFC"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp" />
 
         <Button
@@ -177,7 +171,7 @@
             android:paddingBottom="16dp"
             android:text="@string/menu_where_ive_been"
             android:textAllCaps="false"
-            android:textColor="#FBFCFC"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp" />
 
         <View
@@ -189,7 +183,7 @@
             android:layout_width="200dp"
             android:layout_height="1dp"
             android:layout_gravity="center_horizontal"
-            android:background="#FBFCFC" />
+            android:background="?attr/colorOnPrimary" />
 
         <Button
             android:id="@+id/menu_nav_settings"
@@ -205,10 +199,10 @@
             android:paddingBottom="16dp"
             android:text="@string/menu_settings"
             android:textAllCaps="false"
-            android:textColor="#FBFCFC"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp"
             app:icon="@drawable/settings"
-            app:iconTint="#FBFCFC" />
+            app:iconTint="?attr/colorOnPrimary" />
 
     </LinearLayout>
 
