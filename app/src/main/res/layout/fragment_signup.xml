@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <LinearLayout
+        android:layout_width="414dp"
+        android:layout_height="249dp"
+        android:background="@drawable/rounded_bottom_card_background"
+        android:backgroundTint="#FBFCFC"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/signup_logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/travelogue_logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="414dp"
+        android:layout_height="463dp"
+        android:background="@drawable/rounded_top_card_background"
+        android:backgroundTint="#FBFCFC"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/signup_signup_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:gravity="center_horizontal"
+            android:text="Sign Up"
+            android:textColor="#2B5658"
+            android:textSize="34sp" />
+
+        <EditText
+            android:id="@+id/signup_mail_edittext"
+            android:layout_width="360dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/login_mail_asset"
+            android:ems="10"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:hint=" Email"
+            android:inputType="textEmailAddress"
+            android:textColorHint="#832B5658" />
+
+        <EditText
+            android:id="@+id/signup_pw_edittext"
+            android:layout_width="360dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/login_lock_asset"
+            android:ems="10"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:hint=" Password"
+            android:inputType="textPassword"
+            android:textColorHint="#812B5658" />
+
+        <EditText
+            android:id="@+id/signup_rppw_edittext"
+            android:layout_width="360dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/login_lock_asset"
+            android:ems="10"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:hint=" Repeat Password"
+            android:inputType="textPassword"
+            android:textColorHint="#812B5658" />
+
+        <Button
+            android:id="@+id/signup_signup_btn"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#2B5658"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:text="Sign Up"
+            android:textColor="#FCF5FD"
+            app:cornerRadius="8dp" />
+
+        <TextView
+            android:id="@+id/signup_or_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:text="OR" />
+
+        <Button
+            android:id="@+id/signup_login_btn"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#FBFCFC"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:text="Log In"
+            android:textColor="#2B5658"
+            app:cornerRadius="8dp"
+            app:strokeColor="#2B5658"
+            app:strokeWidth="0.9dp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
