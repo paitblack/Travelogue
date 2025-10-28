@@ -75,14 +75,14 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Travel Name"
+                android:hint="@string/travel_name"
                 app:boxStrokeColor="#2B5856"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/travel_name_edit_text"
+                    android:id="@+id/addTravel_travelName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abhaya_libre_semibold"
@@ -97,15 +97,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:contentDescription="select country"
-                android:hint="Country"
+                android:contentDescription="@string/country"
+                android:hint="@string/country"
                 app:boxStrokeColor="#2B5856"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/travel_name_layout">
 
                 <AutoCompleteTextView
-                    android:id="@+id/country_auto_complete"
+                    android:id="@+id/addTravel_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abhaya_libre_semibold"
@@ -119,15 +119,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:contentDescription="select city"
-                android:hint="City"
+                android:contentDescription="@string/city"
+                android:hint="@string/city"
                 app:boxStrokeColor="#2B5856"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/country_layout">
 
                 <AutoCompleteTextView
-                    android:id="@+id/city_auto_complete"
+                    android:id="@+id/addTravel_city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abhaya_libre_semibold"
@@ -135,7 +135,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/date_button"
+                android:id="@+id/addTravel_date"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -143,15 +143,15 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="#2B5856"
                 android:fontFamily="@font/abhaya_libre_semibold"
-                android:text="Date"
+                android:text="@string/date"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@+id/add_note_button"
+                app:layout_constraintEnd_toStartOf="@+id/addTravel_addNote"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/city_layout" />
 
             <Button
-                android:id="@+id/add_note_button"
+                android:id="@+id/addTravel_addNote"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -159,27 +159,27 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="#2B5856"
                 android:fontFamily="@font/abhaya_libre_semibold"
-                android:text="Add Note"
-                android:textColor="#E0E0E0"
+                android:text="@string/add_note"
+                android:textColor="#FFFFFF"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@+id/add_photo_button"
-                app:layout_constraintStart_toEndOf="@id/date_button"
-                app:layout_constraintTop_toTopOf="@id/date_button" />
+                app:layout_constraintEnd_toStartOf="@+id/addTravel_addPhoto"
+                app:layout_constraintStart_toEndOf="@id/addTravel_date"
+                app:layout_constraintTop_toTopOf="@id/addTravel_date" />
 
             <Button
-                android:id="@+id/add_photo_button"
+                android:id="@+id/addTravel_addPhoto"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="#2B5856"
                 android:fontFamily="@font/abhaya_libre_semibold"
-                android:text="Add Photo"
+                android:text="@string/add_photo"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/add_note_button"
-                app:layout_constraintTop_toTopOf="@id/date_button" />
+                app:layout_constraintStart_toEndOf="@id/addTravel_addNote"
+                app:layout_constraintTop_toTopOf="@id/addTravel_date" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,20 @@
 package msku.ceng.travelogue;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.InputType;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +38,11 @@ public class AddTravel extends Fragment {
     private AutoCompleteTextView countryAutoComplete;
     private AutoCompleteTextView cityAutoComplete;
     private JSONObject countriesAndCities;
+
+    private static final int CAMERA_REQUEST = 1; //request -> camera and gall - any int
+    private static final int GALLERY_REQUEST = 2;
+
+
     public AddTravel(){
         super(R.layout.addtravel);
     }
@@ -43,7 +56,7 @@ public class AddTravel extends Fragment {
 
         backButton.setOnClickListener(v -> navController.popBackStack());
 
-        Button dateButton = view.findViewById(R.id.date_button);
+        Button dateButton = view.findViewById(R.id.addTravel_date);
         dateButton.setOnClickListener(v -> {
             MaterialDatePicker<Long> picker = MaterialDatePicker.Builder.datePicker()
                     .build();
@@ -56,8 +69,8 @@ public class AddTravel extends Fragment {
             });
         });
 
-        countryAutoComplete = view.findViewById(R.id.country_auto_complete);
-        cityAutoComplete = view.findViewById(R.id.city_auto_complete);
+        countryAutoComplete = view.findViewById(R.id.addTravel_country);
+        cityAutoComplete = view.findViewById(R.id.addTravel_city);
 
         try {
             InputStream is = getContext().getAssets().open("countries_cities.json");
@@ -101,5 +114,62 @@ public class AddTravel extends Fragment {
                 e.printStackTrace();
             }
         });
+
+        Button addNote = view.findViewById(R.id.addTravel_addNote);
+        Button addPhoto = view.findViewById(R.id.addTravel_addPhoto);
+
+        addNote.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(R.string.add_a_note);
+
+            final EditText input = new EditText(getContext());
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+            builder.setView(input);
+
+            builder.setPositiveButton(R.string.add, (dialog, which) -> {
+                String note = input.getText().toString();
+                Toast.makeText(getContext(), R.string.note_added, Toast.LENGTH_SHORT).show();
+            });
+            builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
+
+            builder.show();
+        });
+
+        addPhoto.setOnClickListener(v -> {
+            final CharSequence[] options = {getString(R.string.take_photo), getString(R.string.choose_from_gallery), getString(R.string.cancel)};
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(R.string.add_photo);
+            builder.setItems(options, (dialog, item) -> {
+                if (options[item].equals(getString(R.string.take_photo))) {   // TODO : add permission to open camera if needed ??? (manifest)
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                } else if (options[item].equals(getString(R.string.choose_from_gallery))) {
+                    Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(pickPhotoIntent, GALLERY_REQUEST);
+                } else if (options[item].equals(getString(R.string.cancel))) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST && data != null) {
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    // TODO: You have the photo as a Bitmap. You can display it in an ImageView.
+                    Toast.makeText(getContext(), R.string.photo_taken, Toast.LENGTH_SHORT).show();
+                }
+            } else if (requestCode == GALLERY_REQUEST && data != null) {
+                Uri selectedImage = data.getData();
+                // TODO: You have the photo's URI. You can display it in an ImageView.
+                Toast.makeText(getContext(), R.string.photo_selected, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

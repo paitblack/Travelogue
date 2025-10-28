@@ -145,6 +145,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:elevation="0dp"
                 android:fontFamily="@font/abhaya_libre_semibold"
+                android:stateListAnimator="@null"
                 android:text="Forgot Password?"
                 android:textColor="#2B5557" />
 

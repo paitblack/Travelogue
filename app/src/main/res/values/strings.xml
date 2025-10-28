@@ -22,4 +22,19 @@
     <string name="cd_back">Back</string>
     <string name="cd_add_travel">Add new travel</string>
     <string name="cd_add_goal">Add new goal</string>
+
+    <string name="travel_name">Travel Name</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="date">Date</string>
+    <string name="add_note">Add Note</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="add_a_note">Add a Note</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="note_added">Note Added!</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_from_gallery">Choose from Gallery</string>
+    <string name="photo_taken">Photo Taken!</string>
+    <string name="photo_selected">Photo Selected!</string>
 </resources>

@@ -22,4 +22,19 @@
 
     <string name="settings_logout">Abmelden</string>
     <string name="settings_language">Sprache ändern</string>
+
+    <string name="travel_name">Reisename</string>
+    <string name="country">Land</string>
+    <string name="city">Stadt</string>
+    <string name="date">Datum</string>
+    <string name="add_note">Notiz hinzufügen</string>
+    <string name="add_photo">Foto hinzufügen</string>
+    <string name="add_a_note">Notiz hinzufügen</string>
+    <string name="add">Hinzufügen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="note_added">Notiz hinzugefügt!</string>
+    <string name="take_photo">Foto aufnehmen</string>
+    <string name="choose_from_gallery">Aus Galerie auswählen</string>
+    <string name="photo_taken">Foto aufgenommen!</string>
+    <string name="photo_selected">Foto ausgewählt!</string>
 </resources>
