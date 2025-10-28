@@ -7,4 +7,11 @@
         <item name="colorSurface">@color/surface</item>
         <item name="colorOnSurface">@color/onSurface</item>
     </style>
+
+    <style name="MyDatePickerTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorPrimary">#2B5856</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+        <item name="colorOnSurface">@color/onSurface</item>
+    </style>
 </resources>

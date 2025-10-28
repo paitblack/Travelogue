@@ -1,17 +1,17 @@
 package msku.ceng.travelogue;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import androidx.appcompat.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.Fragment;
@@ -39,7 +39,7 @@ public class Settings extends Fragment {
 
         backButton.setOnClickListener(v -> navController.popBackStack());
 
-        languageButton.setOnClickListener(v -> showLanguageDialog());
+        languageButton.setOnClickListener(this::showLanguageMenu);
 
         darkModeButton.setOnClickListener(v -> {
             int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -51,7 +51,7 @@ public class Settings extends Fragment {
             }
             AppCompatDelegate.setDefaultNightMode(newNightMode);
 
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("settings", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("night_mode", newNightMode);
             editor.apply();
@@ -64,33 +64,44 @@ public class Settings extends Fragment {
         languageButton.setText(Character.toUpperCase(currentLanguage.charAt(0)) + currentLanguage.substring(1));
     }
 
-    private void showLanguageDialog() {
-        final String[] languages = {"English", "Türkçe", "Deutsch"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+    private void showLanguageMenu(View v) {
+        PopupMenu popup = new PopupMenu(requireContext(), v, Gravity.CENTER);
+        popup.getMenuInflater().inflate(R.menu.language_menu, popup.getMenu());
 
-        builder.setTitle(R.string.settings_language);
+        popup.setOnMenuItemClickListener(item -> {
+            String langTag;
+            int itemId = item.getItemId();
+            if (itemId == R.id.lang_english) {
+                langTag = "en";
+            } else if (itemId == R.id.lang_turkish) {
+                langTag = "tr";
+            } else if (itemId == R.id.lang_german) {
+                langTag = "de";
+            } else {
+                return false;
+            }
+            LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(langTag);
+            AppCompatDelegate.setApplicationLocales(appLocale);
+            return true;
+        });
+        /// to relocate the pop-up (now its at the bottom center of the button - done)
+        v.post(() -> {
+            try {
+                int[] location = new int[2];
+                v.getLocationOnScreen(location);
+                int xOffset = v.getWidth()/8;
+                int yOffset = v.getHeight()/8;
 
-        builder.setItems(languages, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String langTag;
-                switch (which) {
-                    case 0:
-                        langTag = "en";
-                        break;
-                    case 1:
-                        langTag = "tr";
-                        break;
-                    case 2:
-                        langTag = "de";
-                        break;
-                    default:
-                        return;
-                }
-                LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(langTag);
-                AppCompatDelegate.setApplicationLocales(appLocale);
+                java.lang.reflect.Field mPopup = popup.getClass().getDeclaredField("mPopup");
+                mPopup.setAccessible(true);
+                Object menuPopupHelper = mPopup.get(popup);
+                java.lang.reflect.Method showMethod = menuPopupHelper.getClass()
+                        .getMethod("show", int.class, int.class);
+                showMethod.invoke(menuPopupHelper, xOffset, yOffset);
+            } catch (Exception e) {
+                popup.show();
             }
         });
-        builder.show();
     }
+
 }

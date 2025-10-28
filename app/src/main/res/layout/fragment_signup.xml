@@ -94,7 +94,7 @@
             android:layout_marginTop="8dp"
             android:backgroundTint="#2B5658"
             android:fontFamily="@font/abhaya_libre_semibold"
-            android:text="Sign Up"
+            android:text="Sıgn Up"
             android:textColor="#FCF5FD"
             app:cornerRadius="8dp" />
 
