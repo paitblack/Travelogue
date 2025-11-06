@@ -4,25 +4,35 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,7 +49,10 @@ public class AddTravel extends Fragment {
     private AutoCompleteTextView cityAutoComplete;
     private JSONObject countriesAndCities;
 
-    private static final int CAMERA_REQUEST = 1; //request -> camera and gall - any int
+    private TextView previewTravelName, previewDate, previewLocation;
+    private LinearLayout previewContentContainer;
+
+    private static final int CAMERA_REQUEST = 1; //access permissions to gall - cam (any int ok)
     private static final int GALLERY_REQUEST = 2;
 
 
@@ -56,7 +69,46 @@ public class AddTravel extends Fragment {
 
         backButton.setOnClickListener(v -> navController.popBackStack());
 
+        TextInputEditText travelNameEditText = view.findViewById(R.id.addTravel_travelName);
+        countryAutoComplete = view.findViewById(R.id.addTravel_country);
+        cityAutoComplete = view.findViewById(R.id.addTravel_city);
         Button dateButton = view.findViewById(R.id.addTravel_date);
+
+        previewTravelName = view.findViewById(R.id.preview_travel_name);
+        previewDate = view.findViewById(R.id.preview_date);
+        previewLocation = view.findViewById(R.id.preview_location);
+        previewContentContainer = view.findViewById(R.id.preview_content_container);
+
+
+        travelNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                previewTravelName.setText(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        TextWatcher locationTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                previewLocation.setText(countryAutoComplete.getText().toString() + ", " + cityAutoComplete.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        };
+
+        countryAutoComplete.addTextChangedListener(locationTextWatcher);
+        cityAutoComplete.addTextChangedListener(locationTextWatcher);
+
         dateButton.setOnClickListener(v -> {
             MaterialDatePicker<Long> picker = MaterialDatePicker.Builder.datePicker()
                     .build();
@@ -65,12 +117,11 @@ public class AddTravel extends Fragment {
             picker.addOnPositiveButtonClickListener(selection -> {
                 Calendar c = Calendar.getInstance();
                 c.setTimeInMillis(selection);
-                dateButton.setText(c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR));
+                String dateString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
+                dateButton.setText(dateString);
+                previewDate.setText(dateString);
             });
         });
-
-        countryAutoComplete = view.findViewById(R.id.addTravel_country);
-        cityAutoComplete = view.findViewById(R.id.addTravel_city);
 
         try {
             InputStream is = getContext().getAssets().open("countries_cities.json");
@@ -128,6 +179,18 @@ public class AddTravel extends Fragment {
 
             builder.setPositiveButton(R.string.add, (dialog, which) -> {
                 String note = input.getText().toString();
+                TextView noteView = new TextView(getContext());
+                noteView.setText(note);
+                noteView.setGravity(Gravity.CENTER_HORIZONTAL);
+                Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.abhaya_libre_semibold);
+                noteView.setTypeface(typeface);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 8, 0, 8);
+                noteView.setLayoutParams(params);
+                previewContentContainer.addView(noteView);
                 Toast.makeText(getContext(), R.string.note_added, Toast.LENGTH_SHORT).show();
             });
             builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
@@ -140,7 +203,7 @@ public class AddTravel extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(R.string.add_photo);
             builder.setItems(options, (dialog, item) -> {
-                if (options[item].equals(getString(R.string.take_photo))) {   // TODO : add permission to open camera if needed ??? (manifest)
+                if (options[item].equals(getString(R.string.take_photo))) {
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePictureIntent, CAMERA_REQUEST);
                 } else if (options[item].equals(getString(R.string.choose_from_gallery))) {
@@ -158,16 +221,33 @@ public class AddTravel extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
+            ImageView imageView = new ImageView(getContext());
+
+            int heightInDp = 200;
+            final float scale = getResources().getDisplayMetrics().density;
+            int heightInPixels = (int) (heightInDp * scale + 0.5f);
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    heightInPixels
+            );
+            params.setMargins(0, 8, 0, 8);
+            imageView.setLayoutParams(params);
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageView.setBackgroundColor(Color.parseColor("#EAEAEA"));
+
             if (requestCode == CAMERA_REQUEST && data != null) {
                 Bundle extras = data.getExtras();
                 if (extras != null) {
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    // TODO: You have the photo as a Bitmap. You can display it in an ImageView.
+                    imageView.setImageBitmap(imageBitmap);
+                    previewContentContainer.addView(imageView);
                     Toast.makeText(getContext(), R.string.photo_taken, Toast.LENGTH_SHORT).show();
                 }
             } else if (requestCode == GALLERY_REQUEST && data != null) {
                 Uri selectedImage = data.getData();
-                // TODO: You have the photo's URI. You can display it in an ImageView.
+                imageView.setImageURI(selectedImage);
+                previewContentContainer.addView(imageView);
                 Toast.makeText(getContext(), R.string.photo_selected, Toast.LENGTH_SHORT).show();
             }
         }
