@@ -37,4 +37,7 @@
     <string name="choose_from_gallery">Choose from Gallery</string>
     <string name="photo_taken">Photo Taken!</string>
     <string name="photo_selected">Photo Selected!</string>
+
+    <string name="default_web_client_id" translatable="false">980051002606-mhmutt7sbjvltt3gos5hiijerle3dmua.apps.googleusercontent.com</string>
+
 </resources>

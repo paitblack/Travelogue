@@ -48,6 +48,19 @@
             android:textSize="34sp" />
 
         <EditText
+            android:id="@+id/signup_name_edittext"
+            android:layout_width="360dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/signup_name"
+            android:ems="10"
+            android:fontFamily="@font/abhaya_libre_semibold"
+            android:hint=" Name"
+            android:inputType="textPersonName"
+            android:textColorHint="#832B5658" />
+
+        <EditText
             android:id="@+id/signup_mail_edittext"
             android:layout_width="360dp"
             android:layout_height="48dp"
@@ -122,4 +135,3 @@
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-

@@ -1,22 +1,24 @@
 package msku.ceng.travelogue;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import java.util.List;
 
-@Entity(tableName = "travel_table")
 public class Travel {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    private  String travelName;
+
+    private String id;
+    private String userId;
+
+    private String travelName;
     private String country;
     private String city;
     private long date;
     private List<String> notes;
     private List<String> photoUris;
 
-    public Travel(String travelName, String country, String city, long date, List<String> notes, List<String> photoUris) {
+    public Travel() {
+    }
+
+    public Travel(String userId, String travelName, String country, String city, long date, List<String> notes, List<String> photoUris) {
+        this.userId = userId;
         this.travelName = travelName;
         this.country = country;
         this.city = city;
@@ -25,12 +27,20 @@ public class Travel {
         this.photoUris = photoUris;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTravelName() {

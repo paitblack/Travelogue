@@ -18,9 +18,18 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Locale;
 
 public class Settings extends Fragment {
+
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
+
     public Settings() {
         super(R.layout.settings);
     }
@@ -35,9 +44,18 @@ public class Settings extends Fragment {
         Button languageButton = view.findViewById(R.id.settings_language);
         Button darkModeButton = view.findViewById(R.id.settings_dark);
 
+        mAuth = FirebaseAuth.getInstance();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
+
         updateLanguageButtonText(languageButton);
 
         backButton.setOnClickListener(v -> navController.popBackStack());
+
+        logoutButton.setOnClickListener(v -> signOut(navController));
 
         languageButton.setOnClickListener(this::showLanguageMenu);
 
@@ -55,6 +73,13 @@ public class Settings extends Fragment {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("night_mode", newNightMode);
             editor.apply();
+        });
+    }
+
+    private void signOut(NavController navController) {
+        mAuth.signOut();
+        mGoogleSignInClient.signOut().addOnCompleteListener(requireActivity(), task -> {
+            navController.navigate(R.id.action_global_logout);
         });
     }
 
