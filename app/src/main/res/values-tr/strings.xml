@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Travelogue</string>
 
-    <string name="hi_user">Merhaba, Layla !</string>
-    <string name="cherish_memories">Güzel anılarını yaşat</string>
+    <string name="hi_user">Merhaba, %1$s!</string>
+    <string name="welcome_greeting">Hoş geldiniz!</string>
+    <string name="default_user_name">Kullanıcı</string>
+    <string name="cherish_memories">Güzel anılarınızı yaşatın</string>
     <string name="menu_your_travels">Seyahatlerim</string>
     <string name="menu_goal_travels">Hedeflerim</string>
     <string name="menu_where_ive_been">Gittiğim Yerler</string>
@@ -14,6 +16,7 @@
     <string name="title_add_goal">Hedef Ekle</string>
     <string name="title_where_ive_been">Gittiğim Yerler</string>
     <string name="title_settings">Ayarlar</string>
+    <string name="title_travel_detail">Seyahat Detayı</string>
 
     <string name="settings_logout">Çıkış Yap</string>
     <string name="settings_language">Dili Değiştir</string>
@@ -37,4 +40,13 @@
     <string name="choose_from_gallery">Galeriden Seç</string>
     <string name="photo_taken">Fotoğraf Çekildi!</string>
     <string name="photo_selected">Fotoğraf Seçildi!</string>
+
+    <string name="empty_your_travels">İlk seyahatinizi ekleyerek başlayalım!</string>
+
+    <string name="view_details">Detayları Gör</string>
+    <string name="save_as_photo">Fotoğraf Olarak Kaydet</string>
+    <string name="permission_denied">Depolama alanına yazma izni reddedildi</string>
+    <string name="saved_to_gallery">Galeriye Kaydedildi!</string>
+    <string name="failed_to_save">Resim kaydedilemedi.</string>
+
 </resources>

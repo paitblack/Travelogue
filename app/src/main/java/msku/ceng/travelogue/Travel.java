@@ -12,19 +12,19 @@ public class Travel {
     private String city;
     private long date;
     private List<String> notes;
-    private List<String> photoUris;
+    private List<String> photoUrls;
 
     public Travel() {
     }
 
-    public Travel(String userId, String travelName, String country, String city, long date, List<String> notes, List<String> photoUris) {
+    public Travel(String userId, String travelName, String country, String city, long date, List<String> notes, List<String> photoUrls) {
         this.userId = userId;
         this.travelName = travelName;
         this.country = country;
         this.city = city;
         this.date = date;
         this.notes = notes;
-        this.photoUris = photoUris;
+        this.photoUrls = photoUrls;
     }
 
     public String getId() {
@@ -83,11 +83,11 @@ public class Travel {
         this.notes = notes;
     }
 
-    public List<String> getPhotoUris() {
-        return photoUris;
+    public List<String> getPhotoUrls() {
+        return photoUrls;
     }
 
-    public void setPhotoUris(List<String> photoUris) {
-        this.photoUris = photoUris;
+    public void setPhotoUrls(List<String> photoUrls) {
+        this.photoUrls = photoUrls;
     }
 }

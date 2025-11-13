@@ -63,6 +63,9 @@
         <action
             android:id="@+id/action_yourTravels_to_addTravels"
             app:destination="@id/addTravelFragment" />
+        <action
+            android:id="@+id/action_yourTravels_to_travelDetail"
+            app:destination="@id/travelDetailFragment" />
     </fragment>
 
     <fragment
@@ -98,5 +101,15 @@
         android:name="msku.ceng.travelogue.Settings"
         android:label="fragment_settings"
         android:layout="@layout/settings" />
+        
+    <fragment
+        android:id="@+id/travelDetailFragment"
+        android:name="msku.ceng.travelogue.TravelDetail"
+        android:label="fragment_travel_detail"
+        tools:layout="@layout/fragment_travel_detail">
+        <argument
+            android:name="travelId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

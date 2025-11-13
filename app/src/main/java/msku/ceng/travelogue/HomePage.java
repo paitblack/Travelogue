@@ -84,11 +84,11 @@ public class HomePage extends Fragment {
         if (currentUser != null) {
             String displayName = currentUser.getDisplayName();
             if (displayName != null && !displayName.isEmpty()) {
-                nameTextHp.setText("Hi, " + displayName + "!");
+                nameTextHp.setText(getString(R.string.hi_user, displayName));
                 nameTextMenu.setText(displayName);
             } else {
-                nameTextHp.setText("Welcome!");
-                nameTextMenu.setText("User");
+                nameTextHp.setText(getString(R.string.welcome_greeting));
+                nameTextMenu.setText(getString(R.string.default_user_name));
             }
 
             Uri photoUrl = currentUser.getPhotoUrl();
@@ -145,7 +145,6 @@ public class HomePage extends Fragment {
 
         fileRef.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> {
-                    // This is a more robust way to get the download URL
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(this::updateUserProfile);
                 })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());

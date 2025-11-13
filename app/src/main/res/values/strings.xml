@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Travelogue</string>
 
-    <string name="hi_user">Hi, Layla !</string>
+    <string name="hi_user">Hi, %1$s!</string>
+    <string name="welcome_greeting">Welcome!</string>
+    <string name="default_user_name">User</string>
     <string name="cherish_memories">Cherish your beautiful memories</string>
     <string name="menu_your_travels">Your Travels</string>
     <string name="menu_goal_travels">Goal Travels</string>
@@ -14,6 +16,7 @@
     <string name="title_add_goal">Add Goal</string>
     <string name="title_where_ive_been">Where I\'ve Been</string>
     <string name="title_settings">Settings</string>
+    <string name="title_travel_detail">Travel Detail</string>
 
     <string name="settings_logout">Log Out</string>
     <string name="settings_language">Change Language</string>
@@ -39,5 +42,12 @@
     <string name="photo_selected">Photo Selected!</string>
 
     <string name="default_web_client_id" translatable="false">980051002606-mhmutt7sbjvltt3gos5hiijerle3dmua.apps.googleusercontent.com</string>
+    <string name="empty_your_travels">Let\'s start by adding your first travel!</string>
+
+    <string name="view_details">View Details</string>
+    <string name="save_as_photo">Save as Photo</string>
+    <string name="permission_denied">Permission denied to write to storage</string>
+    <string name="saved_to_gallery">Saved to Gallery!</string>
+    <string name="failed_to_save">Failed to save image.</string>
 
 </resources>

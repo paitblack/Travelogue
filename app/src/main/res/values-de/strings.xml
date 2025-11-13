@@ -1,27 +1,30 @@
 <resources>
     <string name="app_name">Travelogue</string>
 
-    <string name="hi_user">Hallo, Layla !</string>
-    <string name="cherish_memories">Bewahre deine schönen Erinnerungen</string>
-    <string name="menu_your_travels">Deine Reisen</string>
+    <string name="hi_user">Hallo, %1$s!</string>
+    <string name="welcome_greeting">Willkommen!</string>
+    <string name="default_user_name">Benutzer</string>
+    <string name="cherish_memories">Schätzen Sie Ihre schönen Erinnerungen</string>
+    <string name="menu_your_travels">Ihre Reisen</string>
     <string name="menu_goal_travels">Reiseziele</string>
     <string name="menu_where_ive_been">Wo ich war</string>
     <string name="menu_settings">Einstellungen</string>
 
-    <string name="title_your_travels">Deine Reisen</string>
+    <string name="title_your_travels">Ihre Reisen</string>
     <string name="title_goal_travels">Reiseziele</string>
     <string name="title_add_travel">Reise hinzufügen</string>
     <string name="title_add_goal">Ziel hinzufügen</string>
     <string name="title_where_ive_been">Wo ich war</string>
     <string name="title_settings">Einstellungen</string>
+    <string name="title_travel_detail">Reisedetail</string>
+
+    <string name="settings_logout">Ausloggen</string>
+    <string name="settings_language">Sprache ändern</string>
 
     <string name="cd_menu">Menü</string>
     <string name="cd_back">Zurück</string>
     <string name="cd_add_travel">Neue Reise hinzufügen</string>
     <string name="cd_add_goal">Neues Ziel hinzufügen</string>
-
-    <string name="settings_logout">Abmelden</string>
-    <string name="settings_language">Sprache ändern</string>
 
     <string name="travel_name">Reisename</string>
     <string name="country">Land</string>
@@ -33,8 +36,17 @@
     <string name="add">Hinzufügen</string>
     <string name="cancel">Abbrechen</string>
     <string name="note_added">Notiz hinzugefügt!</string>
-    <string name="take_photo">Foto aufnehmen</string>
-    <string name="choose_from_gallery">Aus Galerie auswählen</string>
-    <string name="photo_taken">Foto aufgenommen!</string>
+    <string name="take_photo">Foto machen</string>
+    <string name="choose_from_gallery">Aus der Galerie wählen</string>
+    <string name="photo_taken">Foto gemacht!</string>
     <string name="photo_selected">Foto ausgewählt!</string>
+
+    <string name="empty_your_travels">Beginnen wir mit dem Hinzufügen Ihrer ersten Reise!</string>
+
+    <string name="view_details">Details anzeigen</string>
+    <string name="save_as_photo">Als Foto speichern</string>
+    <string name="permission_denied">Berechtigung zum Schreiben in den Speicher verweigert</string>
+    <string name="saved_to_gallery">In der Galerie gespeichert!</string>
+    <string name="failed_to_save">Bild konnte nicht gespeichert werden.</string>
+
 </resources>
