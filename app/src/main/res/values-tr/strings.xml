@@ -55,7 +55,6 @@
     <string name="failed_to_save">Resim kaydedilemedi.</string>
     <string name="location_placeholder">Ülke, Şehir</string>
 
-    <!-- Delete Confirmation -->
     <string name="delete_confirmation_title">Silmeyi Onayla</string>
     <string name="delete_confirmation_message">Bu seyahati silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</string>
     <string name="delete_button">Sil</string>
