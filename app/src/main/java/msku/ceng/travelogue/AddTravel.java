@@ -3,9 +3,6 @@ package msku.ceng.travelogue;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,9 +11,9 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -32,7 +29,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -60,8 +56,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AddTravel extends Fragment {
+
     private AutoCompleteTextView countryAutoComplete;
     private AutoCompleteTextView cityAutoComplete;
     private JSONObject countriesAndCities;
@@ -69,20 +67,19 @@ public class AddTravel extends Fragment {
     private TextView previewTravelName, previewDate, previewLocation;
     private LinearLayout previewContentContainer;
 
-    private static final String TAG = "AddTravel";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private StorageReference storageReference;
 
     private long selectedDateInMillis = 0;
-    private ArrayList<String> notesForFirebase = new ArrayList<>();
-    private ArrayList<Uri> photoUrisForUpload = new ArrayList<>();
+    private final ArrayList<String> notesForFirebase = new ArrayList<>();
+    private final ArrayList<Uri> photoUrisForUpload = new ArrayList<>();
 
     private ActivityResultLauncher<Intent> galleryLauncher;
     private ActivityResultLauncher<Uri> cameraLauncher;
     private Uri cameraImageUri;
 
-    public AddTravel(){
+    public AddTravel() {
         super(R.layout.addtravel);
     }
 
@@ -98,7 +95,6 @@ public class AddTravel extends Fragment {
 
         ImageButton backButton = view.findViewById(R.id.addTravel_back);
         NavController navController = Navigation.findNavController(view);
-
         backButton.setOnClickListener(v -> navController.popBackStack());
 
         TextInputEditText travelNameEditText = view.findViewById(R.id.addTravel_travelName);
@@ -111,7 +107,6 @@ public class AddTravel extends Fragment {
         previewLocation = view.findViewById(R.id.preview_location);
         previewContentContainer = view.findViewById(R.id.preview_content_container);
 
-
         travelNameEditText.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { previewTravelName.setText(s.toString()); }
@@ -120,7 +115,7 @@ public class AddTravel extends Fragment {
 
         TextWatcher locationTextWatcher = new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { previewLocation.setText(countryAutoComplete.getText().toString() + ", " + cityAutoComplete.getText().toString()); }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { previewLocation.setText(String.format("%s, %s", countryAutoComplete.getText().toString(), cityAutoComplete.getText().toString())); }
             @Override public void afterTextChanged(Editable s) {}
         };
 
@@ -140,91 +135,13 @@ public class AddTravel extends Fragment {
             });
         });
 
-        try {
-            InputStream is = getContext().getAssets().open("countries_cities.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            String json = new String(buffer, StandardCharsets.UTF_8);
-            countriesAndCities = new JSONObject(json);
-
-            Iterator<String> keys = countriesAndCities.keys();
-            ArrayList<String> countryList = new ArrayList<>();
-            while (keys.hasNext()) { countryList.add(keys.next()); }
-            Collections.sort(countryList);
-
-            ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, countryList);
-            countryAutoComplete.setAdapter(countryAdapter);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        cityAutoComplete.setEnabled(false);
-
-        countryAutoComplete.setOnItemClickListener((parent, view1, position, id) -> {
-            String selectedCountry = (String) parent.getItemAtPosition(position);
-            cityAutoComplete.setText("");
-            try {
-                JSONArray cities = countriesAndCities.getJSONArray(selectedCountry);
-                ArrayList<String> cityList = new ArrayList<>();
-                for (int i = 0; i < cities.length(); i++) { cityList.add(cities.getString(i)); }
-                Collections.sort(cityList);
-                ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, cityList);
-                cityAutoComplete.setAdapter(cityAdapter);
-                cityAutoComplete.setEnabled(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        loadJson();
 
         Button addNote = view.findViewById(R.id.addTravel_addNote);
         Button addPhoto = view.findViewById(R.id.addTravel_addPhoto);
 
-        addNote.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle(R.string.add_a_note);
-            final EditText input = new EditText(getContext());
-            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-            builder.setView(input);
-            builder.setPositiveButton(R.string.add, (dialog, which) -> {
-                String note = input.getText().toString();
-                notesForFirebase.add(note);
-                TextView noteView = new TextView(getContext());
-                noteView.setText(note);
-                noteView.setGravity(Gravity.CENTER_HORIZONTAL);
-                Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.abhaya_libre_semibold);
-                noteView.setTypeface(typeface);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0, 8, 0, 8);
-                noteView.setLayoutParams(params);
-                previewContentContainer.addView(noteView);
-                Toast.makeText(getContext(), R.string.note_added, Toast.LENGTH_SHORT).show();
-            });
-            builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
-            builder.show();
-        });
-
-        addPhoto.setOnClickListener(v -> {
-            final CharSequence[] options = {getString(R.string.take_photo), getString(R.string.choose_from_gallery), getString(R.string.cancel)};
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle(R.string.add_photo);
-            builder.setItems(options, (dialog, item) -> {
-                if (options[item].equals(getString(R.string.take_photo))) {
-                    cameraImageUri = createImageUri();
-                    if (cameraImageUri != null) {
-                        cameraLauncher.launch(cameraImageUri);
-                    }
-                } else if (options[item].equals(getString(R.string.choose_from_gallery))) {
-                    Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    galleryLauncher.launch(pickPhotoIntent);
-                } else if (options[item].equals(getString(R.string.cancel))) {
-                    dialog.dismiss();
-                }
-            });
-            builder.show();
-        });
+        addNote.setOnClickListener(v -> showAddNoteDialog());
+        addPhoto.setOnClickListener(v -> showAddPhotoDialog());
 
         Button addButton = view.findViewById(R.id.add_button);
         addButton.setOnClickListener(v -> {
@@ -265,12 +182,28 @@ public class AddTravel extends Fragment {
                 });
     }
 
+    private void addPhotoToPreview(Uri imageUri) {
+        ImageView imageView = new ImageView(getContext());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 400);
+        params.setMargins(0,8,0,8);
+        imageView.setLayoutParams(params);
+        imageView.setImageURI(imageUri);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        previewContentContainer.addView(imageView);
+    }
+    private void addNoteToPreview(String note) {
+        TextView noteView = new TextView(getContext());
+        noteView.setText(note);
+        previewContentContainer.addView(noteView);
+    }
+
+
     private Uri createImageUri() {
         File imageFile = null;
         try {
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String imageFileName = "JPEG_" + timeStamp + "_";
-            File storageDir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            File storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
             imageFile = File.createTempFile(
                     imageFileName,  /* prefix */
                     ".jpg",         /* suffix */
@@ -281,24 +214,9 @@ public class AddTravel extends Fragment {
         }
 
         if (imageFile != null) {
-            return FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".provider", imageFile);
+            return FileProvider.getUriForFile(requireContext(), requireContext().getApplicationContext().getPackageName() + ".provider", imageFile);
         }
         return null;
-    }
-
-    private void addPhotoToPreview(Uri imageUri) {
-        ImageView imageView = new ImageView(getContext());
-        int heightInDp = 200;
-        final float scale = getResources().getDisplayMetrics().density;
-        int heightInPixels = (int) (heightInDp * scale + 0.5f);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, heightInPixels);
-        params.setMargins(0, 8, 0, 8);
-        imageView.setLayoutParams(params);
-        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        imageView.setBackgroundColor(Color.parseColor("#EAEAEA"));
-        imageView.setImageURI(imageUri);
-        previewContentContainer.addView(imageView);
-        Toast.makeText(getContext(), R.string.photo_selected, Toast.LENGTH_SHORT).show();
     }
 
     private void uploadPhotosAndSaveTravel(String travelName, String country, String city, NavController navController) {
@@ -317,20 +235,20 @@ public class AddTravel extends Fragment {
         Toast.makeText(getContext(), "Uploading photos...", Toast.LENGTH_SHORT).show();
         List<String> downloadUrls = new ArrayList<>();
         final int totalPhotos = photoUrisForUpload.size();
+        final AtomicInteger uploadedCount = new AtomicInteger(0);
 
         for (Uri photoUri : photoUrisForUpload) {
             StorageReference fileRef = storageReference.child("travel_photos/" + userId + "/" + UUID.randomUUID().toString());
             fileRef.putFile(photoUri)
-                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    downloadUrls.add(uri.toString());
-                    if (downloadUrls.size() == totalPhotos) {
-                        saveTravelDocument(userId, travelName, country, city, downloadUrls, navController);
-                    }
-                }))
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Photo upload failed: ", e);
-                    Toast.makeText(getContext(), "A photo failed to upload.", Toast.LENGTH_SHORT).show();
-                });
+                    .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        downloadUrls.add(uri.toString());
+                        if (uploadedCount.incrementAndGet() == totalPhotos) {
+                            saveTravelDocument(userId, travelName, country, city, downloadUrls, navController);
+                        }
+                    }))
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), "A photo failed to upload.", Toast.LENGTH_SHORT).show();
+                    });
         }
     }
 
@@ -338,15 +256,89 @@ public class AddTravel extends Fragment {
         Travel newTravel = new Travel(userId, travelName, country, city, selectedDateInMillis, notesForFirebase, photoUrls);
 
         db.collection("travels")
-            .add(newTravel)
-            .addOnSuccessListener(documentReference -> {
-                Log.d(TAG, "Travel document added with ID: " + documentReference.getId());
-                Toast.makeText(getContext(), "Travel Added Successfully!", Toast.LENGTH_LONG).show();
-                navController.popBackStack(); // Go back to the previous screen (YourTravels)
-            })
-            .addOnFailureListener(e -> {
-                Log.w(TAG, "Error adding document", e);
-                Toast.makeText(getContext(), "Error adding travel.", Toast.LENGTH_SHORT).show();
+                .add(newTravel)
+                .addOnSuccessListener(documentReference -> {
+                    Toast.makeText(getContext(), "Travel Added Successfully!", Toast.LENGTH_LONG).show();
+                    navController.popBackStack();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Error adding travel.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void showAddNoteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.add_a_note);
+        final EditText input = new EditText(getContext());
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        builder.setView(input);
+        builder.setPositiveButton(R.string.add, (dialog, which) -> {
+            String note = input.getText().toString();
+            if (!TextUtils.isEmpty(note)) {
+                notesForFirebase.add(note);
+                addNoteToPreview(note);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
+        builder.show();
+    }
+
+    private void showAddPhotoDialog() {
+        final CharSequence[] options = {getString(R.string.take_photo), getString(R.string.choose_from_gallery), getString(R.string.cancel)};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.add_photo);
+        builder.setItems(options, (dialog, item) -> {
+            if (options[item].equals(getString(R.string.take_photo))) {
+                cameraImageUri = createImageUri();
+                if (cameraImageUri != null) {
+                    cameraLauncher.launch(cameraImageUri);
+                }
+            } else if (options[item].equals(getString(R.string.choose_from_gallery))) {
+                Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                galleryLauncher.launch(pickPhotoIntent);
+            } else if (options[item].equals(getString(R.string.cancel))) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private void loadJson(){
+        try {
+            InputStream is = requireContext().getAssets().open("countries_cities.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            String json = new String(buffer, StandardCharsets.UTF_8);
+            countriesAndCities = new JSONObject(json);
+
+            Iterator<String> keys = countriesAndCities.keys();
+            ArrayList<String> countryList = new ArrayList<>();
+            while (keys.hasNext()) { countryList.add(keys.next()); }
+            Collections.sort(countryList);
+
+            ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, countryList);
+            countryAutoComplete.setAdapter(countryAdapter);
+
+            countryAutoComplete.setOnItemClickListener((parent, view1, position, id) -> {
+                String selectedCountry = (String) parent.getItemAtPosition(position);
+                cityAutoComplete.setText("");
+                try {
+                    JSONArray cities = countriesAndCities.getJSONArray(selectedCountry);
+                    ArrayList<String> cityList = new ArrayList<>();
+                    for (int i = 0; i < cities.length(); i++) { cityList.add(cities.getString(i)); }
+                    Collections.sort(cityList);
+                    ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, cityList);
+                    cityAutoComplete.setAdapter(cityAdapter);
+                    cityAutoComplete.setEnabled(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

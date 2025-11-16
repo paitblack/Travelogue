@@ -127,18 +127,13 @@ public class TravelDetail extends Fragment {
         String dateString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
         date.setText(dateString);
 
-        // Clear previously added dynamic views to prevent duplication
-        int staticViewCount = 3; // The container has 3 static children in the XML
+        int staticViewCount = 3;
         if (detailContentContainer.getChildCount() > staticViewCount) {
             detailContentContainer.removeViews(staticViewCount, detailContentContainer.getChildCount() - staticViewCount);
         }
 
-        // Add notes and photos
         List<String> notes = travel.getNotes();
         List<String> photoUrls = travel.getPhotoUrls();
-
-        // This part needs a more sophisticated merging logic if notes and photos are mixed.
-        // For now, adding all notes then all photos.
         if (notes != null) {
             for (String note : notes) {
                 TextView noteView = createTextView(note);
@@ -149,11 +144,10 @@ public class TravelDetail extends Fragment {
         if (photoUrls != null) {
             for (String url : photoUrls) {
                 ImageView imageView = createImageView();
-                // Using placeholder and error to diagnose image loading issues
                 Glide.with(this)
                         .load(url)
-                        .placeholder(R.drawable.rounded_top_card_background) // A placeholder while loading
-                        .error(android.R.drawable.stat_notify_error) // An error icon if it fails
+                        .placeholder(R.drawable.rounded_top_card_background)
+                        .error(android.R.drawable.stat_notify_error)
                         .into(imageView);
                 detailContentContainer.addView(imageView);
             }

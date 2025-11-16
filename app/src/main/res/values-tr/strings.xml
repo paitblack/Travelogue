@@ -13,6 +13,7 @@
     <string name="title_your_travels">Seyahatlerim</string>
     <string name="title_goal_travels">Hedeflerim</string>
     <string name="title_add_travel">Seyahat Ekle</string>
+    <string name="title_edit_travel">Seyahati Düzenle</string>
     <string name="title_add_goal">Hedef Ekle</string>
     <string name="title_where_ive_been">Gittiğim Yerler</string>
     <string name="title_settings">Ayarlar</string>
@@ -35,11 +36,15 @@
     <string name="add_a_note">Not Ekle</string>
     <string name="add">Ekle</string>
     <string name="cancel">İptal</string>
+    <string name="done_button">Bitti</string>
     <string name="note_added">Not Eklendi!</string>
     <string name="take_photo">Fotoğraf Çek</string>
     <string name="choose_from_gallery">Galeriden Seç</string>
     <string name="photo_taken">Fotoğraf Çekildi!</string>
     <string name="photo_selected">Fotoğraf Seçildi!</string>
+    <string name="photo_upload_failed">Bir fotoğraf yüklenemedi.</string>
+    <string name="travel_updated">Seyahat güncellendi!</string>
+    <string name="travel_update_failed">Seyahat güncellenemedi.</string>
 
     <string name="empty_your_travels">İlk seyahatinizi ekleyerek başlayalım!</string>
 
@@ -48,5 +53,11 @@
     <string name="permission_denied">Depolama alanına yazma izni reddedildi</string>
     <string name="saved_to_gallery">Galeriye Kaydedildi!</string>
     <string name="failed_to_save">Resim kaydedilemedi.</string>
+    <string name="location_placeholder">Ülke, Şehir</string>
+
+    <!-- Delete Confirmation -->
+    <string name="delete_confirmation_title">Silmeyi Onayla</string>
+    <string name="delete_confirmation_message">Bu seyahati silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</string>
+    <string name="delete_button">Sil</string>
 
 </resources>
