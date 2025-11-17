@@ -47,7 +47,6 @@ public class SignUpFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
-        // Initialize views
         nameEditText = view.findViewById(R.id.signup_name_edittext);
         emailEditText = view.findViewById(R.id.signup_mail_edittext);
         passwordEditText = view.findViewById(R.id.signup_pw_edittext);
