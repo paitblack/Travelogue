@@ -15,11 +15,6 @@
 local.properties
 
 
-google-services.json
-*.jks
-*.keystore
-secrets.properties
-
 *.apk
 *.aab
 *.dex
@@ -30,3 +25,7 @@ secrets.properties
 /gradlew
 /gradlew.bat
 /gradle/wrapper/gradle-wrapper.jar
+google-services.json
+*.jks
+*.keystore
+secrets.properties
