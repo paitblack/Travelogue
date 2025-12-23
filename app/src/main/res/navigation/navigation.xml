@@ -97,7 +97,11 @@
         android:id="@+id/whereivebeen"
         android:name="msku.ceng.travelogue.WhereIveBeen"
         android:label="fragment_whereivebeen"
-        android:layout="@layout/whereivebeen" />
+        android:layout="@layout/whereivebeen" >
+        <action
+            android:id="@+id/action_whereivebeen_to_travelDetail"
+            app:destination="@id/travelDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/settings"
