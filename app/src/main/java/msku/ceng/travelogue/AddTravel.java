@@ -57,7 +57,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
-
+//SULEYMAN EMRE PARLAK
 public class AddTravel extends Fragment {
 
     private AutoCompleteTextView countryAutoComplete;

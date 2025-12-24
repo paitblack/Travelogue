@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import msku.ceng.travelogue.Travel;
 
+//MERT SENGUN
 public class WhereIveBeenViewModel extends ViewModel {
 
     private static final String TAG = "WhereIveBeenViewModel";

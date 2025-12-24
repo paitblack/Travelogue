@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+// MERT SENGUN
 public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginFragment";

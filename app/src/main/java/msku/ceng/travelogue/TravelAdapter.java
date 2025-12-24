@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+// SULEYMAN EMRE PARLAK
 public class TravelAdapter extends FirestoreRecyclerAdapter<Travel, TravelAdapter.TravelViewHolder> {
 
     private OnDataChangedListener onDataChangedListener;

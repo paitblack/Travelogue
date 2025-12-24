@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+//SULEYMAN EMRE PARLAK
 public class YourTravels extends Fragment implements TravelAdapter.OnDataChangedListener {
 
     private RecyclerView recyclerView;

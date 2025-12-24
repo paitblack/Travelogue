@@ -12,6 +12,7 @@ import msku.ceng.travelogue.Travel;
 
 import static org.junit.Assert.assertEquals;
 
+// MERT SENGUN - SULEYMAN EMRE PARLAK
 
 @RunWith(MockitoJUnitRunner.class)
 public class WhereIveBeenViewModelTest {

@@ -44,6 +44,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+// SULEYMAN EMRE PARLAK
 public class TravelDetail extends Fragment {
 
     private FirebaseFirestore db;

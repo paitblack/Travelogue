@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+// SULEYMAN EMRE PARLAK
 public class SignUpFragment extends Fragment {
 
     private static final String TAG = "SignUpFragment";

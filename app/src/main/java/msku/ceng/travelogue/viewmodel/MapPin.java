@@ -2,6 +2,7 @@ package msku.ceng.travelogue.viewmodel;
 
 import com.google.android.gms.maps.model.LatLng;
 
+// MERT SENGUN
 public class MapPin {
     private final String travelId;
     private final LatLng latLng;

@@ -49,6 +49,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+// MERT SENGUN
 public class HomePage extends Fragment {
     private static final String TAG = "HomePage";
     private DrawerLayout drLout;

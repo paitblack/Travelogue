@@ -13,6 +13,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+// MERT SENGUN
 public class HomepageTravelsAdapter extends FirestoreRecyclerAdapter<Travel, HomepageTravelsAdapter.TravelViewHolder> {
 
     private OnItemClickListener listener;

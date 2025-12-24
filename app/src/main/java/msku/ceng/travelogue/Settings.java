@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Locale;
 
+// SULEYMAN EMRE PARLAK
 public class Settings extends Fragment {
 
     private FirebaseAuth mAuth;

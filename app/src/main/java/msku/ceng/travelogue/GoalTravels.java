@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+// MERT SENGUN
 public class GoalTravels extends Fragment implements GoalTravelsAdapter.OnDataChangedListener {
 
     private RecyclerView recyclerView;

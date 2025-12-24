@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+// SULEYMAN EMRE PARLAK
 public class Travelogue extends Application {
 
     @Override

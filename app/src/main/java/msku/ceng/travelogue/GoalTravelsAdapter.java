@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+//MERT SENGUN
 public class GoalTravelsAdapter extends FirestoreRecyclerAdapter<Goal, GoalTravelsAdapter.GoalViewHolder> {
 
     private OnDataChangedListener onDataChangedListener;

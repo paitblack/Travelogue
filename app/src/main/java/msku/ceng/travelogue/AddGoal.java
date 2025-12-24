@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 
+// MERT SENGUN
 public class AddGoal extends Fragment {
 
     private AutoCompleteTextView countryAutoComplete;

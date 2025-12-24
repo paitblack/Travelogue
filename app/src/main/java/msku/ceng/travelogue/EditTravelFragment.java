@@ -60,6 +60,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
+//SULEYMAN EMRE PARLAK
 public class EditTravelFragment extends Fragment {
 
     private String travelId;

@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import msku.ceng.travelogue.viewmodel.MapPin;
 import msku.ceng.travelogue.viewmodel.WhereIveBeenViewModel;
 
+// MERT SENGUN
 public class WhereIveBeen extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private MapView mapView;

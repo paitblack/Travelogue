@@ -1,5 +1,6 @@
 package msku.ceng.travelogue;
 
+// MERT SENGUN
 public class Goal {
 
     private String id;

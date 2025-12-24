@@ -2,6 +2,7 @@ package msku.ceng.travelogue;
 
 import java.util.List;
 
+// MERT SENGUN
 public class Travel {
 
     private String id;
