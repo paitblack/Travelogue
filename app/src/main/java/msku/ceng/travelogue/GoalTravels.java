@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -56,6 +57,14 @@ public class GoalTravels extends Fragment implements GoalTravelsAdapter.OnDataCh
 
         fab.setOnClickListener(v -> navController.navigate(R.id.action_goalTravels_to_addGoal));
         backButton.setOnClickListener(v -> navController.popBackStack());
+
+        // Listen for the result from AddGoalFragment
+        getParentFragmentManager().setFragmentResultListener("add_goal_result", getViewLifecycleOwner(), (requestKey, bundle) -> {
+            boolean success = bundle.getBoolean("goal_added_success", false);
+            if (success) {
+                Snackbar.make(view, "Goal Added Successfully!", Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setupRecyclerView() {

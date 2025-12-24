@@ -1,6 +1,5 @@
 package msku.ceng.travelogue;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -84,11 +83,11 @@ public class AddGoal extends Fragment {
                 Toast.makeText(getContext(), "Please fill all fields and select a date.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            saveGoal(country, city, navController);
+            saveGoal(country, city);
         });
     }
 
-    private void saveGoal(String country, String city, NavController navController) {
+    private void saveGoal(String country, String city) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(getContext(), "User not logged in.", Toast.LENGTH_SHORT).show();
@@ -100,12 +99,20 @@ public class AddGoal extends Fragment {
 
         db.collection("goals")
                 .add(newGoal)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(getContext(), "Goal Added Successfully!", Toast.LENGTH_LONG).show();
-                    navController.popBackStack();
+                .addOnSuccessListener(requireActivity(), documentReference -> {
+                    if (isAdded()) {
+                        Bundle result = new Bundle();
+                        result.putBoolean("goal_added_success", true);
+                        getParentFragmentManager().setFragmentResult("add_goal_result", result);
+
+                        NavController navController = Navigation.findNavController(requireView());
+                        navController.popBackStack();
+                    }
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Error adding goal.", Toast.LENGTH_SHORT).show();
+                .addOnFailureListener(requireActivity(), e -> {
+                    if (isAdded()) {
+                        Toast.makeText(requireContext().getApplicationContext(), "Error adding goal.", Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
 

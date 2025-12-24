@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -56,6 +57,14 @@ public class YourTravels extends Fragment implements TravelAdapter.OnDataChanged
 
         fab.setOnClickListener(v -> navController.navigate(R.id.action_yourTravels_to_addTravels));
         backButton.setOnClickListener(v -> navController.popBackStack());
+
+        // Listen for the result from AddTravelFragment
+        getParentFragmentManager().setFragmentResultListener("add_travel_result", getViewLifecycleOwner(), (requestKey, bundle) -> {
+            boolean success = bundle.getBoolean("travel_added_success", false);
+            if (success) {
+                Snackbar.make(view, "Travel Added Successfully!", Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setupRecyclerView() {

@@ -153,7 +153,7 @@ public class AddTravel extends Fragment {
                 Toast.makeText(getContext(), "Please fill all fields and select a date.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            uploadPhotosAndSaveTravel(travelName, country, city, navController);
+            uploadPhotosAndSaveTravel(travelName, country, city);
         });
     }
 
@@ -219,7 +219,7 @@ public class AddTravel extends Fragment {
         return null;
     }
 
-    private void uploadPhotosAndSaveTravel(String travelName, String country, String city, NavController navController) {
+    private void uploadPhotosAndSaveTravel(String travelName, String country, String city) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(getContext(), "User not logged in.", Toast.LENGTH_SHORT).show();
@@ -228,7 +228,7 @@ public class AddTravel extends Fragment {
         String userId = currentUser.getUid();
 
         if (photoUrisForUpload.isEmpty()) {
-            saveTravelDocument(userId, travelName, country, city, new ArrayList<>(), navController);
+            saveTravelDocument(userId, travelName, country, city, new ArrayList<>());
             return;
         }
 
@@ -240,29 +240,41 @@ public class AddTravel extends Fragment {
         for (Uri photoUri : photoUrisForUpload) {
             StorageReference fileRef = storageReference.child("travel_photos/" + userId + "/" + UUID.randomUUID().toString());
             fileRef.putFile(photoUri)
-                    .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                        downloadUrls.add(uri.toString());
-                        if (uploadedCount.incrementAndGet() == totalPhotos) {
-                            saveTravelDocument(userId, travelName, country, city, downloadUrls, navController);
+                    .addOnSuccessListener(requireActivity(), taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(requireActivity(), uri -> {
+                        if(isAdded()) {
+                            downloadUrls.add(uri.toString());
+                            if (uploadedCount.incrementAndGet() == totalPhotos) {
+                                saveTravelDocument(userId, travelName, country, city, downloadUrls);
+                            }
                         }
                     }))
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(getContext(), "A photo failed to upload.", Toast.LENGTH_SHORT).show();
+                    .addOnFailureListener(requireActivity(), e -> {
+                        if(isAdded()) {
+                            Toast.makeText(requireContext().getApplicationContext(), "A photo failed to upload.", Toast.LENGTH_SHORT).show();
+                        }
                     });
         }
     }
 
-    private void saveTravelDocument(String userId, String travelName, String country, String city, List<String> photoUrls, NavController navController) {
+    private void saveTravelDocument(String userId, String travelName, String country, String city, List<String> photoUrls) {
         Travel newTravel = new Travel(userId, travelName, country, city, selectedDateInMillis, notesForFirebase, photoUrls);
 
         db.collection("travels")
                 .add(newTravel)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(getContext(), "Travel Added Successfully!", Toast.LENGTH_LONG).show();
-                    navController.popBackStack();
+                .addOnSuccessListener(requireActivity(), documentReference -> {
+                    if (isAdded()) {
+                        Bundle result = new Bundle();
+                        result.putBoolean("travel_added_success", true);
+                        getParentFragmentManager().setFragmentResult("add_travel_result", result);
+
+                        NavController navController = Navigation.findNavController(requireView());
+                        navController.popBackStack();
+                    }
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Error adding travel.", Toast.LENGTH_SHORT).show();
+                .addOnFailureListener(requireActivity(), e -> {
+                    if (isAdded()) {
+                        Toast.makeText(requireContext().getApplicationContext(), "Error adding travel.", Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
 
