@@ -97,7 +97,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:contentDescription="@string/country"
                 android:hint="@string/country"
                 app:boxStrokeColor="#2B5856"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +118,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:contentDescription="@string/city"
                 android:hint="@string/city"
                 app:boxStrokeColor="#2B5856"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -219,7 +217,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abhaya_libre_semibold"
-                            android:text="00.00.0000"
+                            android:text="@string/date_placeholder"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 

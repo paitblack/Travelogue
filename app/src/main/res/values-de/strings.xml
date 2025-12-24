@@ -47,6 +47,7 @@
     <string name="travel_update_failed">Reise konnte nicht aktualisiert werden.</string>
 
     <string name="empty_your_travels">Beginnen wir mit dem Hinzufügen Ihrer ersten Reise!</string>
+    <string name="empty_goal_travels">Fangen wir an, indem wir Ihr erstes Reiseziel hinzufügen!</string>
 
     <string name="view_details">Details anzeigen</string>
     <string name="save_as_photo">Als Foto speichern</string>
@@ -57,6 +58,7 @@
 
     <string name="delete_confirmation_title">Löschung bestätigen</string>
     <string name="delete_confirmation_message">Sind Sie sicher, dass Sie diese Reise löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="delete_goal_confirmation_message">Sind Sie sicher, dass Sie dieses Ziel löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</string>
     <string name="delete_button">Löschen</string>
 
 </resources>

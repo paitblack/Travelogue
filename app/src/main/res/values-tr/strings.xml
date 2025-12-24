@@ -47,6 +47,7 @@
     <string name="travel_update_failed">Seyahat güncellenemedi.</string>
 
     <string name="empty_your_travels">İlk seyahatinizi ekleyerek başlayalım!</string>
+    <string name="empty_goal_travels">İlk hedef seyahatinizi ekleyerek başlayalım!</string>
 
     <string name="view_details">Detayları Gör</string>
     <string name="save_as_photo">Fotoğraf Olarak Kaydet</string>
@@ -57,6 +58,7 @@
 
     <string name="delete_confirmation_title">Silmeyi Onayla</string>
     <string name="delete_confirmation_message">Bu seyahati silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</string>
+    <string name="delete_goal_confirmation_message">Bu hedefi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</string>
     <string name="delete_button">Sil</string>
 
 </resources>
