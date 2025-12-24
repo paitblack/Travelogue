@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,83 +8,305 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="end">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorSurface">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/header_container_hp"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:background="?attr/colorPrimary"
-            android:padding="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:background="?attr/colorSurface">
 
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/image_hp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="32dp"
-                android:padding="4dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toTopOf="@+id/hi_name_hp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/CircularImageView"
-                app:srcCompat="@drawable/no_pp"
-                app:strokeColor="?attr/colorOnPrimary"
-                app:strokeWidth="4dp" />
-
-            <ImageButton
-                android:id="@+id/menu_btn_hp"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="146dp"
-                android:backgroundTint="#00FFFFFF"
-                android:contentDescription="@string/cd_menu"
-                android:padding="0dp"
-                android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <!-- Header -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/header_container_hp"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:background="?attr/colorPrimary"
+                android:padding="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/homepage_menu"
-                app:tint="?attr/colorOnPrimary" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_hp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="32dp"
+                    android:padding="4dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toTopOf="@id/hi_name_hp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/CircularImageView"
+                    app:srcCompat="@drawable/no_pp"
+                    app:strokeColor="?attr/colorOnPrimary"
+                    app:strokeWidth="4dp" />
+
+                <ImageButton
+                    android:id="@+id/menu_btn_hp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="146dp"
+                    android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="@string/cd_menu"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/homepage_menu"
+                    app:tint="?attr/colorOnPrimary" />
+
+                <TextView
+                    android:id="@+id/hi_name_hp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/abhaya_libre_semibold"
+                    android:text="@string/hi_user"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="34sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/cherish_hp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/abhaya_libre_semibold"
+                    android:text="@string/cherish_memories"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/hi_name_hp"
+                android:id="@+id/your_travels_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/abhaya_libre_semibold"
-                android:text="@string/hi_user"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="34sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:text="@string/homepage_your_travels"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/header_container_hp" />
 
             <TextView
-                android:id="@+id/cherish_hp"
+                android:id="@+id/see_all_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="24dp"
                 android:fontFamily="@font/abhaya_libre_semibold"
-                android:text="@string/cherish_memories"
-                android:textColor="@color/textColorSecondary"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:text="@string/homepage_see_all"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/your_travels_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/your_travels_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/homepage_travels_recycler"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/your_travels_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:listitem="@layout/item_homepage_travel" />
+
+            <!-- This Day Last Year Section -->
+            <TextView
+                android:id="@+id/this_day_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/abhaya_libre_semibold"
+                android:text="@string/homepage_this_day_last_year"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/homepage_travels_recycler" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/this_day_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="16dp"
+                app:layout_constraintTop_toBottomOf="@id/this_day_title"
+                app:layout_constraintStart_toStartOf="@id/this_day_title"
+                app:layout_constraintEnd_toEndOf="@id/see_all_button">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/this_day_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/homepage_no_travel_last_year"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp" />
+
+                    <FrameLayout
+                        android:id="@+id/this_day_travel_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Upcoming Travel Countdown Section -->
+            <TextView
+                android:id="@+id/upcoming_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/abhaya_libre_semibold"
+                android:text="@string/homepage_upcoming_countdown"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/this_day_card" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/upcoming_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="16dp"
+                app:layout_constraintTop_toBottomOf="@id/upcoming_title"
+                app:layout_constraintStart_toStartOf="@id/upcoming_title"
+                app:layout_constraintEnd_toEndOf="@id/see_all_button">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/upcoming_destination_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone"
+                        android:textColor="?attr/colorOnSurface"
+                        tools:text="Paris in" />
+
+                    <LinearLayout
+                        android:id="@+id/countdown_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:layout_marginBottom="8dp"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/days_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="15d"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="8dp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:text="@string/countdown_separator"/>
+                        <TextView
+                            android:id="@+id/hours_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="8dp"
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="10h"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="8dp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:text="@string/countdown_separator"/>
+                        <TextView
+                            android:id="@+id/minutes_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="8dp"
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="30m"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="8dp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:text="@string/countdown_separator"/>
+                        <TextView
+                            android:id="@+id/seconds_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="8dp"
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="25s"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/no_upcoming_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/homepage_no_upcoming_goals"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
+    <!-- Drawer Menu -->
     <LinearLayout
         android:id="@+id/drawer_menu_container"
         android:layout_width="300dp"
@@ -111,17 +332,17 @@
 
         <TextView
             android:id="@+id/menu_profile_name"
-            android:layout_width="match_parent" 
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal" 
             android:layout_marginTop="12dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/abhaya_libre_semibold"
-            android:text="Layla"
-            android:textColor="@color/textColorPrimary"
+            android:gravity="center_horizontal"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="34sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="Layla" />
 
         <View
             android:layout_width="200dp"
@@ -206,5 +427,4 @@
             app:iconTint="?attr/colorOnPrimary" />
 
     </LinearLayout>
-
 </androidx.drawerlayout.widget.DrawerLayout>

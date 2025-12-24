@@ -62,4 +62,13 @@
     <string name="delete_button">Löschen</string>
     <string name="goal_added_successfully">Ziel erfolgreich hinzugefügt!</string>
 
+    <string name="homepage_your_travels">Deine Reisen</string>
+    <string name="homepage_see_all">Alle ansehen</string>
+    <string name="homepage_this_day_last_year">An diesem Tag letztes Jahr</string>
+    <string name="homepage_upcoming_countdown">Countdown für anstehende Reisen</string>
+    <string name="homepage_no_travel_last_year">Keine Erinnerungen von diesem Tag im letzten Jahr. Lass uns welche machen!</string>
+    <string name="homepage_on_this_day_last_year">An diesem Tag warst du letztes Jahr in %1$s!</string>
+    <string name="homepage_no_upcoming_goals">Keine bevorstehenden Ziele. Zeit, ein neues Abenteuer zu planen!</string>
+    <string name="homepage_countdown_days">%1$d Tage bis %2$s!</string>
+
 </resources>

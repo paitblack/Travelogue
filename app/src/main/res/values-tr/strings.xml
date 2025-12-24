@@ -62,4 +62,13 @@
     <string name="delete_button">Sil</string>
     <string name="goal_added_successfully">Hedef başarıyla eklendi!</string>
 
+    <string name="homepage_your_travels">Seyahatlerin</string>
+    <string name="homepage_see_all">Tümünü gör</string>
+    <string name="homepage_this_day_last_year">Geçen Yıl Bu Gün</string>
+    <string name="homepage_upcoming_countdown">Yaklaşan Seyahat Geri Sayımı</string>
+    <string name="homepage_no_travel_last_year">Geçen yıl bu güne ait bir anı yok. Hadi yenilerini biriktirelim!</string>
+    <string name="homepage_on_this_day_last_year">Geçen yıl bu gün, %1$s şehrindeydin!</string>
+    <string name="homepage_no_upcoming_goals">Yaklaşan bir hedefin yok. Yeni bir macera planlamanın tam zamanı!</string>
+    <string name="homepage_countdown_days">%2$s seyahatine %1$d gün kaldı!</string>
+
 </resources>
