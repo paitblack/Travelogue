@@ -3,6 +3,7 @@ package msku.ceng.travelogue;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
@@ -32,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -40,6 +42,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -47,6 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 // MERT SENGUN
@@ -145,67 +149,87 @@ public class HomePage extends Fragment {
             Navigation.findNavController(view).navigate(action);
         });
     }
-
+    //
     private void fetchDynamicData() {
         if (currentUser != null) {
-            fetchThisDayLastYear();
+            new FetchThisDayLastYearTask().execute();
             fetchUpcomingGoal();
         }
     }
 
-    private void fetchThisDayLastYear() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -1);
+    // Backgorund Thread imp. ||  MERT SENGUN - SULEYMAN EMRE PARLAK
 
-        Calendar startCal = (Calendar) cal.clone();
-        startCal.set(Calendar.HOUR_OF_DAY, 0);
-        startCal.set(Calendar.MINUTE, 0);
-        startCal.set(Calendar.SECOND, 0);
+    // explanation :
+    // This AsyncTask class is used to perform a long running database query in the background without freezing the user interface (UI).
+    // The `doInBackground` method runs on a separate thread, fetching the travel data from this day last year from Firestore.
+    // Once this background operation is complete, the `onPostExecute` method is automatically called on the main (UI) thread to safely update the screen with the fetched data.
+    // This approach ensures the app remains responsive during the database query.
 
-        Calendar endCal = (Calendar) cal.clone();
-        endCal.set(Calendar.HOUR_OF_DAY, 23);
-        endCal.set(Calendar.MINUTE, 59);
-        endCal.set(Calendar.SECOND, 59);
+    private class FetchThisDayLastYearTask extends AsyncTask<Void, Void, QueryDocumentSnapshot> {
+        @Override
+        protected QueryDocumentSnapshot doInBackground(Void... voids) {
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.YEAR, -1);
 
-        db.collection("travels")
-                .whereEqualTo("userId", currentUser.getUid())
-                .whereGreaterThanOrEqualTo("date", startCal.getTimeInMillis())
-                .whereLessThanOrEqualTo("date", endCal.getTimeInMillis())
-                .limit(1)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (isAdded() && task.isSuccessful() && !task.getResult().isEmpty()) {
-                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                        Travel travel = document.toObject(Travel.class);
-                        thisDayText.setText(getString(R.string.homepage_on_this_day_last_year, travel.getCity()));
+            Calendar startCal = (Calendar) cal.clone();
+            startCal.set(Calendar.HOUR_OF_DAY, 0);
+            startCal.set(Calendar.MINUTE, 0);
+            startCal.set(Calendar.SECOND, 0);
 
-                        // Inflate the travel item view and add it to the container
-                        thisDayTravelContainer.setVisibility(View.VISIBLE);
-                        thisDayTravelContainer.removeAllViews();
-                        View travelItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_travel, thisDayTravelContainer, false);
+            Calendar endCal = (Calendar) cal.clone();
+            endCal.set(Calendar.HOUR_OF_DAY, 23);
+            endCal.set(Calendar.MINUTE, 59);
+            endCal.set(Calendar.SECOND, 59);
 
-                        TextView travelName = travelItemView.findViewById(R.id.item_travel_name);
-                        TextView travelLocation = travelItemView.findViewById(R.id.item_travel_location);
-                        TextView travelDate = travelItemView.findViewById(R.id.item_travel_date);
+            Query query = db.collection("travels")
+                    .whereEqualTo("userId", currentUser.getUid())
+                    .whereGreaterThanOrEqualTo("date", startCal.getTimeInMillis())
+                    .whereLessThanOrEqualTo("date", endCal.getTimeInMillis())
+                    .limit(1);
+            try {
+                QuerySnapshot querySnapshot = Tasks.await(query.get());
+                if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                    return (QueryDocumentSnapshot) querySnapshot.getDocuments().get(0);
+                }
+            } catch (ExecutionException | InterruptedException e) {
+                Log.e(TAG, "Error fetching this day last year travel", e);
+            }
+            return null;
+        }
 
-                        travelName.setText(travel.getTravelName());
-                        travelLocation.setText(String.format("%s, %s", travel.getCountry(), travel.getCity()));
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-                        travelDate.setText(sdf.format(new Date(travel.getDate())));
+        @Override
+        protected void onPostExecute(QueryDocumentSnapshot document) {
+            if (isAdded() && document != null) {
+                Travel travel = document.toObject(Travel.class);
+                thisDayText.setText(getString(R.string.homepage_on_this_day_last_year, travel.getCity()));
 
-                        thisDayTravelContainer.addView(travelItemView);
+                thisDayTravelContainer.setVisibility(View.VISIBLE);
+                thisDayTravelContainer.removeAllViews();
+                View travelItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_travel, thisDayTravelContainer, false);
 
-                        travelItemView.setOnClickListener(v -> {
-                            HomePageDirections.ActionHomeFragmentToTravelDetail action = HomePageDirections.actionHomeFragmentToTravelDetail(document.getId());
-                            Navigation.findNavController(requireView()).navigate(action);
-                        });
+                TextView travelName = travelItemView.findViewById(R.id.item_travel_name);
+                TextView travelLocation = travelItemView.findViewById(R.id.item_travel_location);
+                TextView travelDate = travelItemView.findViewById(R.id.item_travel_date);
 
-                    } else if (isAdded()) {
-                        thisDayText.setText(getString(R.string.homepage_no_travel_last_year));
-                        thisDayTravelContainer.setVisibility(View.GONE);
-                    }
+                travelName.setText(travel.getTravelName());
+                travelLocation.setText(String.format("%s, %s", travel.getCountry(), travel.getCity()));
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+                travelDate.setText(sdf.format(new Date(travel.getDate())));
+
+                thisDayTravelContainer.addView(travelItemView);
+
+                travelItemView.setOnClickListener(v -> {
+                    HomePageDirections.ActionHomeFragmentToTravelDetail action = HomePageDirections.actionHomeFragmentToTravelDetail(document.getId());
+                    Navigation.findNavController(requireView()).navigate(action);
                 });
+
+            } else if (isAdded()) {
+                thisDayText.setText(getString(R.string.homepage_no_travel_last_year));
+                thisDayTravelContainer.setVisibility(View.GONE);
+            }
+        }
     }
+
 
     private void fetchUpcomingGoal() {
         Date now = new Date();
